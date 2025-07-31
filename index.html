@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+    <title>My Website</title>
+   <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #242424, #167a73);
+            color: #ffffff;
+            line-height: 1.6;
+        }
+        
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+            z-index: 1000;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+        }
+        
+        nav h2 {
+            color: #66FCF1;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        .home {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        .home a {
+            text-decoration: none;
+            color: #66FCF1;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .home a:hover {
+            color: white;
+            background: rgba(102, 252, 241, 0.1);
+            border-bottom: 3px solid #66FCF1;
+        }
+        
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 20px 20px;
+            background: linear-gradient(135deg, rgba(36, 36, 36, 0.9), rgba(22, 122, 115, 0.9));
+        }
+        
+        .hero-content {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            max-width: 1200px;
+            width: 100%;
+        }
+        
+        .hero-text {
+            flex: 1;
+            max-width: 600px;
+        }
+        
+        .hero-text h1 {
+            font-size: 3.5rem;
+            color: #66FCF1;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .hero-text .subtitle {
+            font-size: 1.8rem;
+            color: #1befe1;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+        
+        .hero-text p {
+            font-size: 1.2rem;
+            color: #e0e0e0;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #66FCF1, #1befe1);
+            color: #242424;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 252, 241, 0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #66FCF1;
+            border: 2px solid #66FCF1;
+        }
+        
+        .btn-secondary:hover {
+            background: #66FCF1;
+            color: #242424;
+            transform: translateY(-2px);
+        }
+        
+        .profile-section {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .profile-container {
+            position: relative;
+            width: 350px;
+            height: 350px;
+        }
+        
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #66FCF1;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .profile-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 25px 50px rgba(102, 252, 241, 0.2);
+        }
+        
+        .profile-glow {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #66FCF1, #1befe1);
+            opacity: 0.3;
+            z-index: -1;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.1; }
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .social-link {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(102, 252, 241, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #66FCF1;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+        
+        .social-link:hover {
+            background: #66FCF1;
+            color: #242424;
+            transform: translateY(-3px);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 40px;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-text .subtitle {
+                font-size: 1.4rem;
+            }
+            
+            .profile-container {
+                width: 250px;
+                height: 250px;
+            }
+            
+            nav {
+                padding: 15px 20px;
+            }
+            
+            .home {
+                gap: 20px;
+            }
+            
+            .home a {
+                padding: 6px 12px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 200px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+ <div id="navbar-placeholder"></div>
+    <script>
+        fetch('navbar.html')
+            .then(res => res.text())
+            .then(data => document.getElementById('navbar-placeholder').innerHTML = data)
+            .catch(err => console.log('Navbar not found'));
+    </script>
+
+ <section id="home" class="hero-section">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Hello, I'm Praveena</h1>
+                <div class="subtitle">Full Stack Developer</div>
+                <p>
+                    Passionate about creating innovative web solutions and bringing ideas to life through code. 
+                    I specialize in modern web technologies and love building user-friendly applications that make a difference.
+                </p>
+                <div class="cta-buttons">
+                    <a href="project.html" class="btn btn-primary">View My Work</a>
+                    <a href="contact.html" class="btn btn-secondary">Get In Touch</a>
+                </div>
+            </div>
+            
+            <div class="profile-section">
+                <div class="profile-container">
+                    <div class="profile-glow"></div>
+                    <!-- Replace this src with your actual profile photo -->
+                    <img src="./image/port.jpg" 
+                         alt="Praveena SV Profile" 
+                         class="profile-image">
+                </div>
+            </div>
+        </div>
+        
+        <div class="social-links">
+            <a href="#" class="social-link">📧</a>
+            <a href="#" class="social-link">💼</a>
+            <a href="#" class="social-link">🐙</a>
+            <a href="#" class="social-link">📱</a>
+        </div>
+    </section>
+      
+
+</body>
+</html>

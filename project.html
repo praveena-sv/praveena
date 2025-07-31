@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Projects</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #242424 0%, #167a73 100%);
+            min-height: 100vh;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(102, 252, 241, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(102, 252, 241, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 40% 60%, rgba(102, 252, 241, 0.05) 0%, transparent 40%);
+            pointer-events: none;
+            z-index: -1;
+            animation: backgroundFloat 8s ease-in-out infinite;
+        }
+
+        @keyframes backgroundFloat {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(180deg); }
+        }
+
+        .projects-section {
+            padding: 80px 0;
+            min-height: 100vh;
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #66FCF1;
+            text-align: center;
+            margin-bottom: 60px;
+            text-shadow: 0 0 30px rgba(102, 252, 241, 0.5);
+            background: linear-gradient(45deg, #66FCF1, #45B7B8, #66FCF1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% auto;
+            animation: shimmer 3s linear infinite;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, #66FCF1, #45B7B8);
+            border-radius: 2px;
+            box-shadow: 0 0 20px rgba(102, 252, 241, 0.6);
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+            padding: 0 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(102, 252, 241, 0.2);
+            border-radius: 25px;
+            padding: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            height: fit-content;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(102, 252, 241, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+            opacity: 0;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+            transform: rotate(45deg) translate(20px, 20px);
+        }
+
+        .project-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(102, 252, 241, 0.4);
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.2),
+                0 0 50px rgba(102, 252, 241, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #66FCF1, #45B7B8);
+            border-radius: 25px 25px 0 0;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-image i {
+            font-size: 4rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-content {
+            padding: 30px;
+        }
+
+        .project-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #66FCF1;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover .project-title {
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(102, 252, 241, 0.8);
+        }
+
+        .project-description {
+            font-size: 1rem;
+            color: #dfe4e9;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover .project-description {
+            color: #ffffff;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 25px;
+        }
+
+        .tech-tag {
+            background: rgba(102, 252, 241, 0.1);
+            color: #66FCF1;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid rgba(102, 252, 241, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover .tech-tag {
+            background: rgba(102, 252, 241, 0.2);
+            border-color: rgba(102, 252, 241, 0.4);
+            color: #ffffff;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: rgba(102, 252, 241, 0.1);
+            color: #66FCF1;
+            text-decoration: none;
+            border-radius: 25px;
+            border: 1px solid rgba(102, 252, 241, 0.2);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(102, 252, 241, 0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .project-link:hover::before {
+            left: 100%;
+        }
+
+        .project-link:hover {
+            background: rgba(102, 252, 241, 0.2);
+            color: #ffffff;
+            border-color: #66FCF1;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 252, 241, 0.3);
+        }
+
+        .project-status {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 255, 0, 0.2);
+            color: #00ff00;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+        }
+
+        .status-completed {
+            background: rgba(0, 255, 0, 0.2);
+            color: #00ff00;
+            border-color: rgba(0, 255, 0, 0.3);
+        }
+
+        .status-ongoing {
+            background: rgba(255, 165, 0, 0.2);
+            color: #ffa500;
+            border-color: rgba(255, 165, 0, 0.3);
+        }
+
+        .status-planned {
+            background: rgba(255, 0, 0, 0.2);
+            color: #ff6b6b;
+            border-color: rgba(255, 0, 0, 0.3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2.5rem;
+                margin-bottom: 40px;
+            }
+
+            .projects-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                padding: 0 15px;
+            }
+
+            .project-content {
+                padding: 25px 20px;
+            }
+
+            .project-title {
+                font-size: 1.5rem;
+            }
+
+            .project-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .projects-section {
+                padding: 50px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 30px;
+            }
+
+            .project-content {
+                padding: 20px 15px;
+            }
+
+            .project-title {
+                font-size: 1.3rem;
+            }
+
+            .project-description {
+                font-size: 0.9rem;
+            }
+
+            .project-image {
+                height: 200px;
+            }
+
+            .project-image i {
+                font-size: 3rem;
+            }
+        }
+
+        /* Loading animation */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translate3d(0, 100%, 0);
+            }
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        .project-card {
+            animation: slideInUp 0.6s ease-out;
+        }
+
+        .project-card:nth-child(1) { animation-delay: 0.1s; }
+        .project-card:nth-child(2) { animation-delay: 0.2s; }
+        .project-card:nth-child(3) { animation-delay: 0.3s; }
+        .project-card:nth-child(4) { animation-delay: 0.4s; }
+    </style>
+</head>
+
+<body>
+    <div id="navbar-placeholder"></div>
+    <script>
+        fetch('navbar.html')
+            .then(res => res.text())
+            .then(data => document.getElementById('navbar-placeholder').innerHTML = data)
+            .catch(err => console.log('Navbar not found'));
+    </script>
+
+    <div class="projects-section">
+        <div class="container-fluid">
+            <h2 class="section-title">MY PROJECTS</h2>
+            
+            <div class="projects-container">
+                <!-- Project 1: Online Food Ordering System -->
+                <div class="project-card">
+                    <div class="project-status status-completed">Completed</div>
+                    <div class="project-image">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Online Food Ordering System</h3>
+                        <p class="project-description">
+                            A comprehensive web-based food ordering platform that allows customers to browse menus, place orders, and track deliveries. Features include user authentication, cart management, payment integration, and admin dashboard for restaurant management.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">HTML</span>
+                            <span class="tech-tag">CSS</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">Java</span>
+                            <span class="tech-tag">MySQL</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                <i class="fab fa-github"></i>
+                                View Code
+                            </a>
+                            <a href="#" class="project-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                Live Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: Portfolio Website -->
+                <div class="project-card">
+                    <div class="project-status status-ongoing">Ongoing</div>
+                    <div class="project-image">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Personal Portfolio Website</h3>
+                        <p class="project-description">
+                            A modern, responsive portfolio website showcasing my skills, projects, and experience. Built with clean design principles, smooth animations, and optimized for all devices. Features dark theme, contact forms, and interactive elements.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">HTML5</span>
+                            <span class="tech-tag">CSS3</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">Bootstrap</span>
+                            <span class="tech-tag">Font Awesome</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                <i class="fab fa-github"></i>
+                                View Code
+                            </a>
+                            <a href="#" class="project-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                Visit Site
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3: Student Management System -->
+                <div class="project-card">
+                    <div class="project-status status-completed">Completed</div>
+                    <div class="project-image">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Student Management System</h3>
+                        <p class="project-description">
+                            A desktop application for managing student records, grades, and attendance. Built with Java Swing for the GUI and MySQL for database management. Features include student registration, grade tracking, and report generation.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Java</span>
+                            <span class="tech-tag">Swing</span>
+                            <span class="tech-tag">MySQL</span>
+                            <span class="tech-tag">JDBC</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                <i class="fab fa-github"></i>
+                                View Code
+                            </a>
+                            <a href="#" class="project-link">
+                                <i class="fas fa-download"></i>
+                                Download
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4: Weather App -->
+                <div class="project-card">
+                    <div class="project-status status-planned">Planned</div>
+                    <div class="project-image">
+                        <i class="fas fa-cloud-sun"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Weather Forecast App</h3>
+                        <p class="project-description">
+                            A Python-based weather application that provides real-time weather data and forecasts. Features include location-based weather, multiple city support, weather alerts, and data visualization with charts and graphs.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Tkinter</span>
+                            <span class="tech-tag">API Integration</span>
+                            <span class="tech-tag">JSON</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                <i class="fas fa-code"></i>
+                                Coming Soon
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Add smooth hover effects and animations
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-15px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Animate cards on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.project-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>

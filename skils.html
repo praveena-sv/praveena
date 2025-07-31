@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Skills</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #242424 0%, #167a73 100%);
+            min-height: 100vh;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Animated background particles */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(102, 252, 241, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(102, 252, 241, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .skills-section {
+            padding: 80px 0;
+            min-height: 100vh;
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #66FCF1;
+            text-align: center;
+            margin-bottom: 60px;
+            text-shadow: 0 0 30px rgba(102, 252, 241, 0.5);
+            background: linear-gradient(45deg, #66FCF1, #45B7B8, #66FCF1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% auto;
+            animation: shimmer 3s linear infinite;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #66FCF1, #45B7B8);
+            border-radius: 2px;
+            box-shadow: 0 0 20px rgba(102, 252, 241, 0.6);
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            padding: 0 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .skill-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(102, 252, 241, 0.2);
+            border-radius: 25px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(102, 252, 241, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .skill-card:hover::before {
+            left: 100%;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(102, 252, 241, 0.4);
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.2),
+                0 0 50px rgba(102, 252, 241, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .skill-icon {
+            font-size: 4rem;
+            color: #66FCF1;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 20px rgba(102, 252, 241, 0.5);
+        }
+
+        .skill-card:hover .skill-icon {
+            transform: scale(1.1) rotateY(360deg);
+            color: #45B7B8;
+        }
+
+        .skill-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #66FCF1;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .skill-card:hover .skill-title {
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(102, 252, 241, 0.8);
+        }
+
+        .skill-desc {
+            font-size: 1rem;
+            color: #dfe4e9;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .skill-card:hover .skill-desc {
+            color: #ffffff;
+        }
+
+        .skill-level {
+            background: rgba(102, 252, 241, 0.1);
+            border-radius: 20px;
+            padding: 5px 0;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 8px;
+            background: linear-gradient(90deg, #66FCF1, #45B7B8);
+            border-radius: 4px;
+            transition: width 1s ease-in-out;
+            box-shadow: 0 0 10px rgba(102, 252, 241, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 10px rgba(102, 252, 241, 0.5); }
+            to { box-shadow: 0 0 20px rgba(102, 252, 241, 0.8); }
+        }
+
+        .skill-percentage {
+            position: absolute;
+            top: -25px;
+            right: 10px;
+            font-size: 0.9rem;
+            color: #66FCF1;
+            font-weight: 600;
+        }
+
+        /* Individual skill colors and icons */
+        .skill-card.java .skill-icon { color: #f89820; }
+        .skill-card.python .skill-icon { color: #3776ab; }
+        .skill-card.html-css .skill-icon { color: #e34c26; }
+        .skill-card.sql .skill-icon { color: #336791; }
+        .skill-card.git .skill-icon { color: #f1502f; }
+
+        .skill-card.java:hover { border-color: rgba(248, 152, 32, 0.4); }
+        .skill-card.python:hover { border-color: rgba(55, 118, 171, 0.4); }
+        .skill-card.html-css:hover { border-color: rgba(227, 76, 38, 0.4); }
+        .skill-card.sql:hover { border-color: rgba(51, 103, 145, 0.4); }
+        .skill-card.git:hover { border-color: rgba(241, 80, 47, 0.4); }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2.5rem;
+                margin-bottom: 40px;
+            }
+
+            .skills-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 0 15px;
+            }
+
+            .skill-card {
+                padding: 30px 20px;
+                margin: 0 10px;
+            }
+
+            .skill-icon {
+                font-size: 3rem;
+            }
+
+            .skill-title {
+                font-size: 1.5rem;
+            }
+
+            .skills-section {
+                padding: 50px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 30px;
+            }
+
+            .skill-card {
+                padding: 25px 15px;
+                margin: 0 5px;
+            }
+
+            .skill-icon {
+                font-size: 2.5rem;
+            }
+
+            .skill-title {
+                font-size: 1.3rem;
+            }
+
+            .skill-desc {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Loading animation */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translate3d(0, 100%, 0);
+            }
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        .skill-card {
+            animation: slideInUp 0.6s ease-out;
+        }
+
+        .skill-card:nth-child(1) { animation-delay: 0.1s; }
+        .skill-card:nth-child(2) { animation-delay: 0.2s; }
+        .skill-card:nth-child(3) { animation-delay: 0.3s; }
+        .skill-card:nth-child(4) { animation-delay: 0.4s; }
+        .skill-card:nth-child(5) { animation-delay: 0.5s; }
+    </style>
+</head>
+
+<body>
+    <div id="navbar-placeholder"></div>
+    <script>
+        fetch('navbar.html')
+            .then(res => res.text())
+            .then(data => document.getElementById('navbar-placeholder').innerHTML = data)
+            .catch(err => console.log('Navbar not found'));
+    </script>
+
+    <div class="skills-section">
+        <div class="container-fluid">
+            <h2 class="section-title">MY SKILLS</h2>
+            
+            <div class="skills-container">
+                <div class="skill-card java">
+                    <div class="skill-icon">
+                        <i class="fab fa-java"></i>
+                    </div>
+                    <div class="skill-title">Java</div>
+                    <div class="skill-desc">Good understanding of OOPs, basics to intermediate level coding with strong foundation in data structures.</div>
+                    <div class="skill-level">
+                        <div class="skill-progress" style="width: 75%"></div>
+                        <div class="skill-percentage">75%</div>
+                    </div>
+                </div>
+
+                <div class="skill-card python">
+                    <div class="skill-icon">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <div class="skill-title">Python</div>
+                    <div class="skill-desc">Basic programming, logic building, data handling, and experience with libraries for automation.</div>
+                    <div class="skill-level">
+                        <div class="skill-progress" style="width: 65%"></div>
+                        <div class="skill-percentage">65%</div>
+                    </div>
+                </div>
+
+                <div class="skill-card html-css">
+                    <div class="skill-icon">
+                        <i class="fab fa-html5"></i>
+                    </div>
+                    <div class="skill-title">HTML & CSS</div>
+                    <div class="skill-desc">Able to design clean, structured, and responsive web pages with modern styling techniques.</div>
+                    <div class="skill-level">
+                        <div class="skill-progress" style="width: 80%"></div>
+                        <div class="skill-percentage">80%</div>
+                    </div>
+                </div>
+
+                <div class="skill-card sql">
+                    <div class="skill-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div class="skill-title">SQL</div>
+                    <div class="skill-desc">Understanding of queries, database tables, joins, and data manipulation for efficient data management.</div>
+                    <div class="skill-level">
+                        <div class="skill-progress" style="width: 70%"></div>
+                        <div class="skill-percentage">70%</div>
+                    </div>
+                </div>
+
+                <div class="skill-card git">
+                    <div class="skill-icon">
+                        <i class="fab fa-git-alt"></i>
+                    </div>
+                    <div class="skill-title">Git & GitHub</div>
+                    <div class="skill-desc">Basic usage for version control, collaboration, branching, and managing code repositories effectively.</div>
+                    <div class="skill-level">
+                        <div class="skill-progress" style="width: 60%"></div>
+                        <div class="skill-percentage">60%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Animate progress bars on scroll
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const progressBar = entry.target.querySelector('.skill-progress');
+                    const targetWidth = progressBar.style.width;
+                    progressBar.style.width = '0%';
+                    setTimeout(() => {
+                        progressBar.style.width = targetWidth;
+                    }, 200);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.skill-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
